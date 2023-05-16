@@ -1,0 +1,9 @@
+extends user-layout
+
+block tab-specific-info
+    div(class="overflow-y-auto p-10 grid auto-rows-min gap-2 h-full")
+        if (requestedUserPosts.length)
+            each post in requestedUserPosts
+                include ./card.pug
+        else
+            div.m-auto No posts yet

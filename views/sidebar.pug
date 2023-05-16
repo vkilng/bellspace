@@ -1,0 +1,41 @@
+div(class="drawer h-full bg-stone-100 font-sans font-medium content-between", data-theme="wireframe")
+    div(class="drawer-side overflow-y-auto")
+        ul(class="menu w-full p-4 text-base-content")
+            li
+                a(href="/") Home
+            div(class="collapse collapse-arrow")
+                input(type="checkbox" checked)
+                div(class="collapse-title text-base-content font-bold -ms-1")
+                    | Communities
+                div(class="collapse-content")
+                    ul(class="menu text-base-content")
+                        li
+                            a r/jobs
+                        li
+                            a r/helimaintenance
+                        li
+                            a r/avionics
+            .divider
+            if (currentUser)
+                li
+                    a
+                        svg(xmlns="http://www.w3.org/2000/svg", width="24", height="18", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                            path(d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z")
+                        | Messages
+                //- div.divider
+                li
+                    a(href="/user/"+currentUser.username+"/submit")
+                        svg(xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                            line(x1="12", y1="5", x2="12", y2="19")
+                            line(x1="5", y1="12", x2="19", y2="12")
+                        | Create Post
+    div(class="p-4")
+        if (!currentUser)
+            div(class="divider mt-0")
+            div(class="grid justify-center")
+                div(class="mb-4")
+                    | Create an account to follow your favorite communities and start taking part in conversations.
+                a(href="/register", class="btn mb-4 rounded-full normal-case text-base", data-theme="light")
+                    | Join Bellspace
+        div(class="p-2 text-center")
+            | This is an SSR project by vkilng

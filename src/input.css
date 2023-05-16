@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #94a3b8 #cbd5e1;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+*::-webkit-scrollbar-track {
+    background: #cbd5e1;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #94a3b8;
+    border-radius: 0.3vw;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    user-select: none;
+}
+
+.navbar .container-fluid {
+    padding: 0;
+}
+
+.vote-btn {
+    font-size: 2rem !important;
+    font-variation-settings: 'wght' 300;
+    cursor: pointer;
+}
+
+.vote-btn.vote-active,
+.vote-btn:hover {
+    font-variation-settings: 'FILL' 1;
+}
+
+.vote-btn:first-of-type.vote-active {
+    color: #f97316;
+}
+
+.vote-btn:last-of-type.vote-active {
+    color: #84cc16;
+}
+
+.vote-btn:first-of-type:hover {
+    color: #f97316;
+}
+
+.vote-btn:last-of-type:hover {
+    color: #84cc16;
+}

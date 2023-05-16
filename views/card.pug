@@ -1,0 +1,56 @@
+div(class="flex m-2 p-4 rounded-2xl bg-stone-200 gap-4 max-w-xl")
+    div(class="grid items-center justify-items-center gap-2 h-min")
+        i(class="material-symbols-rounded vote-btn") shift
+        if (post.upvotes > 999)
+            div(class="text-md font-medium") #{Math.floor(post.upvotes/100)/10}k
+        else if (post.upvotes < -999)
+            div(class="text-md font-medium") #{Math.ceil(post.upvotes/100)/10}k
+        else
+            div(class="text-md font-medium") #{post.upvotes}
+        i(class="material-symbols-rounded vote-btn rotate-180 -ms-1") shift
+    
+    div(class="grid auto-rows-min gap-3 content-between")
+        div(class="grid auto-rows-min gap-3")
+            div(class="flex gap-2")
+                if (post.community)
+                    div(class="font-bold") r/#{post.community.name}
+                div Posted by u/#{post.author.username}
+                div #{post.created_at.toDateString()}
+            div(class="font-bold text-xl")= post.title
+            if (post.imgurl)
+                img(src=post.imgurl, alt="image not found", class="rounded-2xl")
+
+        div(class="flex gap-4 items-center")
+            div(class="flex gap-1 items-center")
+                i(class="material-symbols-rounded") comment
+                if (post.commentCount > 999)
+                    div #{Math.floor(post.commentCount/100)/10}k
+                else if (post.commentCount < -999)
+                    div #{Math.ceil(post.commentCount/100)/10}k
+                else
+                    div #{post.commentCount}
+
+                div Comments
+            div(class="flex gap-1 items-center")
+                i(class="material-symbols-rounded") share
+                | Share
+            div(class="flex gap-1 items-center")
+                i(class="material-symbols-rounded") bookmark
+                | Save
+            div(class="dropdown dropdown-top dropdown-end")
+                label(tabindex="0", class="btn btn-sm btn-ghost px-2")
+                    i(class="material-symbols-rounded") more_horiz
+                ul(tabindex="0", class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-fit whitespace-nowrap")
+                    if (post.community)
+                        li(class="disabled")
+                            a
+                                i(class="material-symbols-rounded") volume_mute
+                                | Mute r/#{post.community.name}
+                    li
+                        a
+                            i(class="material-symbols-rounded") visibility_off
+                            | Hide post
+                    li
+                        a
+                            i(class="material-symbols-rounded") flag
+                            | Report

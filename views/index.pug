@@ -1,0 +1,15 @@
+extends layout.pug
+
+block page-banner
+    svg(xmlns="http://www.w3.org/2000/svg", class="w-6 h-7", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+        path(d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9")
+        path(d="M9 22V12h6v10M2 10.6L12 2l10 8.6")
+    div Home
+
+block main-content
+    div(class="overflow-y-auto p-10 grid auto-rows-min gap-2 h-full")
+        if (posts.length)
+            each post in posts
+                include ./card.pug
+        else
+            div.m-auto No posts yet
