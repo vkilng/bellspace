@@ -1,6 +1,6 @@
 div(class="navbar bg-slate-50 justify-between ps-0 pe-8")
     div(class="justify-self-start flex gap-10")
-        img(src="/images/Bellspace-logo.jpeg", alt="Logo" class="max-w-[15vw]")
+        img(src="/images/Bellspace-logo.jpeg", alt="Logo", class="max-w-[15vw]")
         div(class="flex gap-3 items-end")
             block page-banner
 
@@ -16,7 +16,7 @@ div(class="navbar bg-slate-50 justify-between ps-0 pe-8")
             div(class="dropdown dropdown-end")
                 if (currentUser.profilepicurl)
                     label(tabindex="0", class="btn gap-2 btn-ghost m-1 bg-stone-100 normal-case")
-                        div(class="rounded-full w-fit h-fit", style="background-image: url('<%= currentUser.profilepicurl %>');")
+                        div(class="rounded-full w-fit h-fit", style="background-image: url('../uploads/"+currentUser.profilepicurl+"');")
                         | #{currentUser.username}
                         svg(xmlns='http://www.w3.org/2000/svg', width='16', height='16', viewBox='0 0 24 24', fill='none', stroke='#000000', stroke-width='2', stroke-linecap='round', stroke-linejoin='round')
                             path(d='M6 9l6 6 6-6')
@@ -47,7 +47,7 @@ div(class="navbar bg-slate-50 justify-between ps-0 pe-8")
                             | Log Out
         else
             label(for="login-modal", class="btn px-10 rounded-full normal-case text-base") Log In
-            if (error)
+            if (errorMsg && (errorMsg.includes('username') || errorMsg.includes('password')))
                 input(type="checkbox", id="login-modal", class="modal-toggle", checked='')
             else
                 input(type="checkbox", id="login-modal", class="modal-toggle")
@@ -77,12 +77,12 @@ div(class="navbar bg-slate-50 justify-between ps-0 pe-8")
                             class="input input-bordered w-full max-w-xs focus:outline-none"
                             autocomplete="username" required
                             title="Letters, numbers, dashes, and underscores only. Please try again without symbols. Username must be between 3 and 20 characters.")
-                        if (error && error.includes('username'))
+                        if (errorMsg && errorMsg.includes('username'))
                             div(class="alert text-red-500 bg-transparent p-0 mt-2 text-sm")
                                 div
                                     svg.stroke-current.flex-shrink-0.h-5.w-5(xmlns='http://www.w3.org/2000/svg', fill='none', viewBox='0 0 24 24')
                                         path(stroke-linecap='round', stroke-linejoin='round', stroke-width='2', d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z')
-                                    span= error
+                                    span= errorMsg
 
                     div(class="w-full max-w-xs")
                         div(class="input-group w-full max-w-xs mt-5")
@@ -91,12 +91,12 @@ div(class="navbar bg-slate-50 justify-between ps-0 pe-8")
                                 input(type="checkbox")
                                 i(class="material-symbols-rounded swap-on", style="font-variation-settings: 'FILL' 1;") visibility
                                 i(class="material-symbols-rounded swap-off", style="font-variation-settings: 'FILL' 1;") visibility_off
-                        if (error && error.includes('password'))
+                        if (errorMsg && errorMsg.includes('password'))
                             div(class="alert text-red-500 bg-transparent p-0 mt-2 text-sm")
                                 div
                                     svg.stroke-current.flex-shrink-0.h-5.w-5(xmlns='http://www.w3.org/2000/svg', fill='none', viewBox='0 0 24 24')
                                         path(stroke-linecap='round', stroke-linejoin='round', stroke-width='2', d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z')
-                                    span= error
+                                    span= errorMsg
 
                     button(type="submit", class="btn normal-case rounded-full w-1/2 mt-5") Log In
 

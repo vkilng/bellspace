@@ -1,7 +1,7 @@
 div.grid.auto-rows-min.bg-stone-100.rounded-lg.h-min
     div.h-32.bg-gradient-to-r.from-teal-400.to-teal-800.rounded-t-lg
     div.top-0.mx-5.-mt-24.grid.gap-2
-        div.p-1.bg-stone-100.rounded-lg.w-fit.relative 
+        div.p-1.bg-stone-100.rounded-lg.w-fit.relative
             img.h-28.rounded-lg(src="/images/blank-profile-pic.png", alt="profile-pic")
             if (currentUser && requestedUser.username === currentUser.username)
                 button.btn.btn-circle.btn-sm.absolute.bottom-0.right-0.m-2
@@ -22,7 +22,7 @@ div.grid.auto-rows-min.bg-stone-100.rounded-lg.h-min
                 div.text-sm Coming Soon
             div.mr-5
                 div Cake Day
-                div.text-sm= requestedUser.created_at.toDateString().split(' ').slice(1).join(' ')
+                div.text-sm= new Date(requestedUser.created_at).toDateString().split(' ').slice(1).join(' ')
         if (currentUser && requestedUser.username === currentUser.username)
             a.btn.btn-accent.normal-case.btn-block.rounded-full.text-white.text-lg.mb-5(href="/user/"+currentUser.username+"/submit") New Post
         else

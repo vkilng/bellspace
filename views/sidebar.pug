@@ -3,18 +3,57 @@ div(class="drawer h-full bg-stone-100 font-sans font-medium content-between", da
         ul(class="menu w-full p-4 text-base-content")
             li
                 a(href="/") Home
-            div(class="collapse collapse-arrow")
-                input(type="checkbox" checked)
-                div(class="collapse-title text-base-content font-bold -ms-1")
-                    | Communities
-                div(class="collapse-content")
-                    ul(class="menu text-base-content")
-                        li
-                            a r/jobs
-                        li
-                            a r/helimaintenance
-                        li
-                            a r/avionics
+            if (currentUser)
+                li
+                    label(for="create-community-modal")
+                        svg(xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                            line(x1="12", y1="5", x2="12", y2="19")
+                            line(x1="5", y1="12", x2="19", y2="12")
+                        | Create Community
+                if(errorMsg && errorMsg.includes('community'))
+                    input(type="checkbox", id="create-community-modal", class="modal-toggle", checked)
+                else
+                    input(type="checkbox", id="create-community-modal", class="modal-toggle")
+                div.modal
+                    div.modal-box
+                        div.flex.justify-between.items-center
+                            h3(class="text-lg font-bold") Create a community
+                            div(class="modal-action m-0")
+                                label(for="create-community-modal", class="btn btn-ghost rounded-md px-2")
+                                    svg(xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                                        line(x1="18", y1="6", x2="6", y2="18")
+                                        line(x1="6", y1="6", x2="18", y2="18")
+                        .divider.m-0
+                        form.py-4.grid.gap-4(action="/r/create-community", method="post", enctype="multipart/form-data")
+                            div.flex.items-center.gap-3
+                                h3(class="text-lg font-medium") Name
+                                div(class="tooltip tooltip-right", data-tip="Names cannot have spaces (e.g., \"r/bookclub\" not \"r/book club\"), must be between 3-21 characters, and underscores (\"_\") are the only special characters allowed. Avoid using solely trademarked names (e.g., \"r/FansOfAcme\" not \"r/Acme\").")
+                                    svg(xmlns="http://www.w3.org/2000/svg", width="16", height="16", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                                        circle(cx="12", cy="12", r="10")
+                                        line(x1="12", y1="16", x2="12", y2="12")
+                                        line(x1="12", y1="8", x2="12.01", y2="8")
+                            input(type="text", name="community-name", class="input input-bordered w-full focus:outline-none rounded-lg", required,
+                                pattern="[a-zA-Z_?]{3,21}", title="Names cannot have spaces (e.g., \"r/bookclub\" not \"r/book club\"), must be between 3-21 characters, and underscores (\"_\") are the only special characters allowed. Avoid using solely trademarked names (e.g., \"r/FansOfAcme\" not \"r/Acme\").")
+                            h3(class="text-lg font-medium") Description
+                            input(type="text", name="community-description", class="input input-bordered w-full focus:outline-none rounded-lg", minLength="8", required)
+                            h3(class="text-lg font-medium") Community profile picture
+                            input(type="file" name="community-profilepic" class="file-input file-input-bordered w-full max-w-xs")
+                            if(errorMsg && errorMsg.includes('community'))
+                                div(class="alert text-red-500 bg-transparent p-0 -mt-3 text-sm")
+                                    div
+                                        svg(xmlns="http://www.w3.org/2000/svg", class="stroke-current flex-shrink-0 h-5 w-5", fill="none", viewBox="0 0 24 24")
+                                            path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z")
+                                        span= errorMsg
+                            button.btn.rounded-full.px-10.justify-self-end(type="submit") Create Community
+            if (communitiesList)
+                div(class="collapse collapse-arrow")
+                    input(type="checkbox" checked)
+                    div(class="collapse-title text-base-content font-bold -ms-1")
+                        | Communities
+                    div(class="collapse-content")
+                        ul(class="menu text-base-content")
+                            each community in communitiesList
+                                li: a(href="/r/"+community.name) r/#{community.name}
             .divider
             if (currentUser)
                 li

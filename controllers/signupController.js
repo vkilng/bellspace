@@ -20,8 +20,10 @@ exports.signup_post = [
             if (await usernameExists(value)) {
                 throw new Error('Username not available, try a different one');
             }
-        })
-        .escape(),
+            if (value.match(/[^0-9a-zA-Z-_]/g)) {
+                throw new Error('Letters, numbers, dashes, and underscores only. Please try again without symbols. Username must be between 3 and 20 characters.');
+            }
+        }),
     validator.body('password', 'Password must be at least 8 characters long')
         .trim()
         .isLength({ min: 8 }),

@@ -1,12 +1,12 @@
 extends user-layout
 
 block tab-specific-info
-    div.overflow-y-auto
+    div.mb-10.h-min.overflow-y-auto
         div.text-xl.font-semibold.mb-5 Pinned Posts
         div.overflow-y-auto.p-10.grid.auto-rows-min.gap-2.h-full
             if (requestedUser.pinned && requestedUser.pinned.length)            
                 each post in requestedUser.pinned
-                    include ./card.pug
+                    include ./post-overview-card.pug
             else
                 div.flex.items-center.gap-2.h-full.justify-center
                     i.material-symbols-rounded.rotate-45 push_pin

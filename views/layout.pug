@@ -13,5 +13,5 @@ html(lang="en", data-theme="light")
     body(class="grid grid-rows-[min-content_1fr] grid-cols-1 md:grid-cols-[1fr_3.5fr]")
         div(class="z-20 col-span-3 h-min shadow-lg"): include ./header.pug
         div(class="overflow-y-hidden hidden md:block"): include ./sidebar.pug
-        div(class="overflow-y-hidden"): block main-content
+        div(class="overflow-y-hidden h-full"): block main-content
         script(type="application/javascript", src="/javascripts/script.js")

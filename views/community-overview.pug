@@ -1,0 +1,22 @@
+extends layout
+
+block page-banner
+    if (community)
+        div(class="w-max rounded-full bg-[url('/uploads/"+community.profilepic+".png')]")
+        div r/#{community.name}
+
+block main-content
+    if (community)
+        div(class="tabs m-2 justify-evenly")
+            a(class="tab comments-tab tab-bordered tab-active") POSTS
+            a(class="tab comments-tab tab-bordered") RULES
+        div(class="overflow-y-auto h-full p-10 grid lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[2fr_1fr] gap-2")
+            div(class="overflow-y-auto mb-10 grid auto-rows-min gap-2")
+                if (communityPosts.length)
+                    each post in communityPosts
+                        include ./post-overview-card.pug
+                else
+                    div.m-auto No posts yet
+            include ./community-info-panel.pug
+    else
+        div(class="w-full h-full flex items-center justify-center") No such community exists

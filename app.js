@@ -21,6 +21,7 @@ var indexRouter = require('./routes/index');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var userRouter = require('./routes/user');
+var communityRouter = require('./routes/community');
 
 var app = express();
 
@@ -38,11 +39,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('keyboard cat'));
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', indexRouter);
 app.use('/register', signupRouter);
 app.use('/login', loginRouter);
 app.use('/user', userRouter);
+app.use('/r', communityRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

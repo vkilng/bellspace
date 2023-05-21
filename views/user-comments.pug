@@ -2,8 +2,8 @@ extends user-layout
 
 block tab-specific-info
     div(class="overflow-y-auto mb-10 grid auto-rows-min gap-2")
-        if (requestedUserPosts.length)
-            each post in requestedUserPosts
-                include ./post-overview-card.pug
+        if (requestedUserComments.length)
+            each comment in requestedUserComments
+                include ./comment-overview-card.pug
         else
             div.m-auto No posts yet

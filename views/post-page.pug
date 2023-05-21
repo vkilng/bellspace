@@ -7,9 +7,9 @@ block page-banner
     div Home
 
 block main-content
-    div(class="overflow-y-auto p-10 grid auto-rows-min gap-2 h-full")
-        if (posts.length)
-            each post in posts
-                include ./post-overview-card.pug
-        else
-            div.m-auto No posts yet
+    div(class="overflow-y-auto h-full p-10 grid lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[2fr_1fr] gap-2")
+        div.grid.gap-4
+            include post-detailed-card.pug
+            //- comment editor
+            //- Comments in hierarchy
+        include community-info-panel.pug
