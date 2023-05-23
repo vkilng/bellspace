@@ -4126,37 +4126,8 @@ html{
   margin-top: 2rem;
 }
 
-.mt-4{
-  margin-top: 1rem;
-}
-
-.mb-7{
-  margin-bottom: 1.75rem;
-}
-
-.ms-2{
-  -webkit-margin-start: 0.5rem;
-          margin-inline-start: 0.5rem;
-}
-
-.ms-10{
-  -webkit-margin-start: 2.5rem;
-          margin-inline-start: 2.5rem;
-}
-
-.ms-4{
-  -webkit-margin-start: 1rem;
-          margin-inline-start: 1rem;
-}
-
-.ms-5{
-  -webkit-margin-start: 1.25rem;
-          margin-inline-start: 1.25rem;
-}
-
-.ms-1{
-  -webkit-margin-start: 0.25rem;
-          margin-inline-start: 0.25rem;
+.mb-2{
+  margin-bottom: 0.5rem;
 }
 
 .block{
@@ -4209,26 +4180,6 @@ html{
   height: min-content;
 }
 
-.h-20{
-  height: 5rem;
-}
-
-.h-3{
-  height: 0.75rem;
-}
-
-.h-10{
-  height: 2.5rem;
-}
-
-.h-16{
-  height: 4rem;
-}
-
-.h-24{
-  height: 6rem;
-}
-
 .w-1\/2{
   width: 50%;
 }
@@ -4241,8 +4192,8 @@ html{
   width: 25%;
 }
 
-.w-32{
-  width: 8rem;
+.w-12{
+  width: 3rem;
 }
 
 .w-5{
@@ -4251,6 +4202,10 @@ html{
 
 .w-6{
   width: 1.5rem;
+}
+
+.w-7{
+  width: 1.75rem;
 }
 
 .w-fit{
@@ -4262,22 +4217,9 @@ html{
   width: 100%;
 }
 
-.w-max{
-  width: -moz-max-content;
-  width: max-content;
-}
-
 .w-min{
   width: -moz-min-content;
   width: min-content;
-}
-
-.w-20{
-  width: 5rem;
-}
-
-.w-12{
-  width: 3rem;
 }
 
 .max-w-\[15vw\]{
@@ -4378,12 +4320,20 @@ html{
   gap: 1rem;
 }
 
+.gap-5{
+  gap: 1.25rem;
+}
+
 .gap-7{
   gap: 1.75rem;
 }
 
 .gap-8{
   gap: 2rem;
+}
+
+.gap-6{
+  gap: 1.5rem;
 }
 
 .justify-self-start{
@@ -4398,10 +4348,6 @@ html{
   justify-self: center;
 }
 
-.overflow-hidden{
-  overflow: hidden;
-}
-
 .overflow-y-auto{
   overflow-y: auto;
 }
@@ -4410,30 +4356,8 @@ html{
   overflow-y: hidden;
 }
 
-.truncate{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.text-ellipsis{
-  text-overflow: ellipsis;
-}
-
-.whitespace-normal{
-  white-space: normal;
-}
-
 .whitespace-nowrap{
   white-space: nowrap;
-}
-
-.whitespace-pre{
-  white-space: pre;
-}
-
-.whitespace-pre-wrap{
-  white-space: pre-wrap;
 }
 
 .rounded-2xl{
@@ -4504,6 +4428,11 @@ html{
   background-color: rgb(231 229 228 / var(--tw-bg-opacity));
 }
 
+.bg-stone-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 162 158 / var(--tw-bg-opacity));
+}
+
 .bg-transparent{
   background-color: transparent;
 }
@@ -4513,8 +4442,9 @@ html{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-\[url\(\'\/uploads\/\"\+community\.profilepic\+\"\.png\'\)\]{
-  background-image: url('/uploads/"+community.profilepic+".png');
+.bg-stone-50{
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 249 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r{
@@ -4533,14 +4463,6 @@ html{
 
 .bg-cover{
   background-size: cover;
-}
-
-.bg-contain{
-  background-size: contain;
-}
-
-.bg-center{
-  background-position: center;
 }
 
 .stroke-current{
@@ -4565,6 +4487,10 @@ html{
 
 .p-4{
   padding: 1rem;
+}
+
+.p-8{
+  padding: 2rem;
 }
 
 .px-10{
@@ -4615,37 +4541,12 @@ html{
           padding-inline-start: 0px;
 }
 
-.pl-2{
-  padding-left: 0.5rem;
-}
-
-.ps-2{
-  -webkit-padding-start: 0.5rem;
-          padding-inline-start: 0.5rem;
-}
-
-.pl-10{
-  padding-left: 2.5rem;
-}
-
 .text-center{
   text-align: center;
 }
 
-.align-baseline{
-  vertical-align: baseline;
-}
-
 .font-sans{
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.font-mono{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-.font-serif{
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 .text-base{
@@ -4668,6 +4569,21 @@ html{
   line-height: 1.75rem;
 }
 
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-3xl{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-xs{
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
 .font-bold{
   font-weight: 700;
 }
@@ -4682,14 +4598,6 @@ html{
 
 .font-semibold{
   font-weight: 600;
-}
-
-.font-light{
-  font-weight: 300;
-}
-
-.font-thin{
-  font-weight: 100;
 }
 
 .normal-case{
@@ -4818,11 +4726,6 @@ a {
 
 .hover\:font-semibold:hover{
   font-weight: 600;
-}
-
-.hover\:text-white:hover{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus{

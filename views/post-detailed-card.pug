@@ -1,29 +1,32 @@
-div(class="flex m-2 p-4 bg-stone-200 gap-4 max-w-xl")
+div(class="flex p-4 gap-4 w-full h-min")
     div(class="grid items-center justify-items-center gap-2 h-min")
         i(class="material-symbols-rounded vote-btn") shift
         if (post.upvotes > 999)
-            div(class="text-md font-medium") #{Math.floor(post.upvotes/100)/10}k
+            div(class="upvote-count text-md font-medium") #{Math.floor(post.upvotes/100)/10}k
         else if (post.upvotes < -999)
-            div(class="text-md font-medium") #{Math.ceil(post.upvotes/100)/10}k
+            div(class="upvote-count text-md font-medium") #{Math.ceil(post.upvotes/100)/10}k
         else
-            div(class="text-md font-medium") #{post.upvotes}
+            div(class="upvote-count text-md font-medium") #{post.upvotes}
         i(class="material-symbols-rounded vote-btn rotate-180 -ms-1") shift
+        
 
-    div(class="grid auto-rows-min gap-3 content-between")
+    div(class="grid auto-rows-min gap-4")
         div(class="grid auto-rows-min gap-3")
-            div(class="flex gap-2")
+            div(class="flex gap-2 text-sm")
                 if (post.community)
+                    img(src="/uploads/"+post.community.profilepic+".png", class="w-5 h-5 rounded-full")
                     div(class="font-bold") r/#{post.community.name}
                 div Posted by
                     | 
                     a(class="hover:font-semibold", href="/user/"+post.author.username) u/#{post.author.username}
                 div= post.created_at.toDateString()
-            a(class="font-bold text-xl", href=`/user/${post.author.username}/comments/${post._id}`)= post.title
+            div.text-2xl.font-bold= post.title
+            div#post-body-readonly
             if (post.imgurl)
-                img(src=post.imgurl, alt="image not found", class="rounded-2xl")
+                img(src=post.imgurl, alt="image not found")
 
-        div(class="flex gap-4 items-center")
-            div(class="flex gap-1 items-center")
+        div(class="flex gap-6  items-center text-sm")
+            div(class="flex gap-2 items-center")
                 i(class="material-symbols-rounded") comment
                 if (post.commentCount > 999)
                     div #{Math.floor(post.commentCount/100)/10}k
@@ -33,7 +36,7 @@ div(class="flex m-2 p-4 bg-stone-200 gap-4 max-w-xl")
                     div #{post.commentCount}
 
                 div Comments
-            div(class="flex gap-1 items-center")
+            div(class="flex gap-2 items-center")
                 i(class="material-symbols-rounded") share
                 | Share
             div(class="flex gap-1 items-center")
@@ -49,10 +52,6 @@ div(class="flex m-2 p-4 bg-stone-200 gap-4 max-w-xl")
                                 svg(xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
                                     path(d="M11 5L6 9H2v6h4l5 4zM22 9l-6 6M16 9l6 6")
                                 | Mute r/#{post.community.name}
-                    li
-                        a
-                            i(class="material-symbols-rounded") visibility_off
-                            | Hide post
                     li
                         a
                             i(class="material-symbols-rounded") flag

@@ -2,8 +2,9 @@ extends layout
 
 block page-banner
     if (community)
-        div(class="w-max rounded-full bg-[url('/uploads/"+community.profilepic+".png')]")
-        div r/#{community.name}
+        div.flex.gap-3.items-center
+            img(src="/uploads/"+community.profilepic+".png", class="w-7 h-7 rounded-full")
+            div r/#{community.name}
 
 block main-content
     if (community)

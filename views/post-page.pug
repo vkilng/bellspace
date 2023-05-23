@@ -1,15 +1,59 @@
 extends layout
 
+block styles
+    link(rel="stylesheet", href="/stylesheets/quill.snow.css")
+
 block page-banner
-    svg(xmlns="http://www.w3.org/2000/svg", class="w-6 h-7", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
-        path(d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9")
-        path(d="M9 22V12h6v10M2 10.6L12 2l10 8.6")
-    div Home
+    if(post.community)
+        div.flex.gap-3.items-center
+            img(src="/uploads/"+community.profilepic+".png", class="w-7 h-7 rounded-full")
+            div r/#{post.community.name}
+    else
+        svg(xmlns="http://www.w3.org/2000/svg", class="w-6 h-7", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+            path(d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9")
+            path(d="M9 22V12h6v10M2 10.6L12 2l10 8.6")
+        div u/#{post.author.username}
 
 block main-content
-    div(class="overflow-y-auto h-full p-10 grid lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[2fr_1fr] gap-2")
-        div.grid.gap-4
+    div(class="overflow-y-auto h-full p-10 bg-stone-200 grid gap-10 lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[2fr_1fr]")
+        div.grid.auto-rows-min.bg-stone-50.p-2
             include post-detailed-card.pug
-            //- comment editor
+            if (currentUser)
+                .divider
+                div.px-4.h-min
+                    div.mb-2.text-sm Comment as u/#{currentUser.username}
+                    input(type="hidden", name="comment-content")
+                    div#comment-editor
             //- Comments in hierarchy
-        include community-info-panel.pug
+            .divider
+            div.p-4.m-auto No comments here
+        if (post.community)
+            include ./community-info-panel.pug
+        else
+            include ./user-info-panel.pug
+    script(src="/javascripts/quill.min.js")
+    script.
+        var postBodyReadOnlyQuill = new Quill('#post-body-readonly');
+        postBodyReadOnlyQuill.setContents(!{post.body});
+        postBodyReadOnlyQuill.enable(false);
+        document.querySelector('#post-body-readonly .ql-clipboard').setAttribute('contenteditable',false);
+        document.querySelector('#post-body-readonly .ql-editor').style.padding = '0';
+        document.querySelector('#post-body-readonly .ql-editor').style.lineHeight = '1.2';
+        var commentEditorQuill = new Quill('#comment-editor',{
+            theme: 'snow',
+            placeholder: 'What are your thoughts?',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['clean']
+                ],
+            },
+        });
+        commentEditorQuill.on('text-change',() => {
+            const commentInputElement = document.querySelector('input[name="comment-content"]');
+            commentInputElement.value = JSON.stringify(commentEditorQuill.getContents());
+        })
+

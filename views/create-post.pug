@@ -5,22 +5,21 @@ block styles
 
 block page-banner
     svg(xmlns="http://www.w3.org/2000/svg", width="24", height="24", viewBox="0 0 24 24", fill="none", stroke="#000000", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
-        path(d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3")
-        circle(cx="12", cy="10", r="3")
-        circle(cx="12", cy="12", r="10")
-    div u/#{currentUser.username}
+        line(x1="12", y1="5", x2="12", y2="19")
+        line(x1="5", y1="12", x2="19", y2="12")
+    div Create Post
 
-block main-content
-    form.p-10.grid.auto-rows-min.h-full.overflow-y-auto(method="post")
+mixin editors
+    form.grid.auto-rows-min.h-full.overflow-y-auto(method="post")
         div.text-xl.font-semibold.mb-5 Create Post
         input(type="text", name="post-title", placeholder="Title", class="input input-bordered w-full mb-5 rounded-none focus:outline-none", required)
-        input(type="hidden", name="post-content")
-        div#post-editor
+        input(type="hidden", name="post-body-content")
+        div#post-body-editor
         button.btn.btn-wide.btn-accent.text-white.normal-case.rounded-full.justify-self-end.mt-5(type="submit") Post
         script(src="/javascripts/quill.min.js")
         script.
-            var quill = new Quill('#post-editor', {
-                theme: 'snow',   // Specify theme in configuration
+            var quill = new Quill('#post-body-editor', {
+                theme: 'snow',
                 placeholder: 'Text (optional)',
                 modules: {
                     toolbar: [
@@ -35,7 +34,15 @@ block main-content
                 },
             });
             quill.on('text-change',() => {
-                const inputElement = document.querySelector('input[name="post-content"]');
-                inputElement.value = quill.root.innerHTML;
+                const inputElement = document.querySelector('input[name="post-body-content"]');
+                inputElement.value = JSON.stringify(quill.getContents());
             })
 
+block main-content
+    if (community)
+        div(class="overflow-y-auto h-full p-10 grid gap-10 lg:grid-cols-[1.5fr_1fr] xl:grid-cols-[2fr_1fr]")
+            +editors
+            include ./community-info-panel.pug
+    else
+        div.p-10
+            +editors

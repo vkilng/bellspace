@@ -53,23 +53,82 @@ exports.create_community_post = [
                 currentUser.communities.push(newCommunity._id);
                 newCommunity.moderators.push(currentUser._id);
                 await Promise.all([newCommunity.save(), currentUser.save()]);
+                req.logIn(currentUser, function (err) {
+                    if (!err) {
+                        console.log('--> Successfully updated user');
+                        res.redirect(`/r/${req.body['community-name']}`);
+                    }
+                });
             }
-            res.redirect('/');
         } else {
             req.flash("error", errors.mapped()['community-name'].msg);
             res.redirect('/');
         }
-    })
-]
+    }),
+];
+
+exports.join_community_post = asyncHandler(async (req, res, next) => {
+    const community = await Communities.findOne({ name: req.params.community_name }).exec();
+    const currentUser = await Users.findOne({ username: req.user.username }).exec();
+    if (!currentUser.communities.includes(community._id)) {
+        currentUser.communities.push(community._id);
+        community.memberCount += 1;
+        await Promise.all([community.save(), currentUser.save()]);
+        req.logIn(currentUser, function (err) {
+            if (!err) {
+                console.log('--> Successfully updated user');
+                res.redirect(`/r/${req.params.community_name}`);
+            }
+        });
+    } else {
+        res.redirect('/');
+    }
+})
+
+exports.leave_community_post = asyncHandler(async (req, res, next) => {
+    const community = await Communities.findOne({ name: req.params.community_name }).exec();
+    const currentUser = await Users.findOne({ username: req.user.username }).exec();
+    const indexOfCommunity = currentUser.communities.indexOf(community._id);
+    if (indexOfCommunity > -1) {
+        currentUser.communities.splice(indexOfCommunity, 1);
+        community.memberCount -= 1;
+        const indexOfUser = community.moderators.indexOf(currentUser._id);
+        if (indexOfUser > -1) {
+            community.moderators.splice(indexOfUser, 1);
+        }
+        await Promise.all([community.save(), currentUser.save()]);
+        req.logIn(currentUser, function (err) {
+            if (!err) {
+                console.log('--> Successfully updated user');
+                res.redirect(`/r/${req.params.community_name}`);
+            }
+        });
+    } else {
+        res.redirect('/');
+    }
+});
 
 exports.community_overview_get = asyncHandler(async (req, res, next) => {
-    const communitiesList = await Communities.find().select('name').exec();
-    const community = await Communities.findOne({ name: req.params.community_name }).populate('memberCount').exec();
+    const communitiesList = await Communities.find().sort({ created_at: -1 }).select('name').exec();
+    const community = await Communities.findOne({ name: req.params.community_name }).exec();
     if (community) {
-        console.log(typeof community._id);
         const communityPosts = await Posts.find({ community: community._id }).exec();
         res.render('community-overview', { currentUser: req.user, communitiesList, community, communityPosts });
     } else {
         res.render('community-overview', { currentUser: req.user, communitiesList, community: null });
     }
+});
+
+exports.create_post_get = asyncHandler(async (req, res, next) => {
+    const communitiesList = await Communities.find().sort({ created_at: -1 }).select('name').exec();
+    const community = await Communities.findOne({ name: req.params.community_name }).populate('memberCount').exec();
+    if (req.user && community) {
+        res.render('create-post', { currentUser: req.user, communitiesList, community });
+    } else {
+        res.redirect('/');
+    }
+})
+
+exports.create_post_post = asyncHandler(async (req, res, next) => {
+    res.send('Yeah, wait a minute');
 })

@@ -8,7 +8,7 @@ const PostSchema = new Schema({
     body: { type: String, required: true },
     imgurl: String,
     author: { type: Schema.Types.ObjectId, ref: "Users", required: true },
-    community: Schema.Types.ObjectId,
+    community: { type: Schema.Types.ObjectId, ref: "Communities" },
     commentCount: { type: Number, default: 0 },
     upvotes: { type: Number, default: 0 },
 })
