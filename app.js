@@ -12,9 +12,7 @@ var mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(
-    `mongodb+srv://${process.env.DB_username}:${process.env.DB_password}@cluster0.kj8t2zy.mongodb.net/bellspace?retryWrites=true&w=majority`
-  );
+  await mongoose.connect(MONGODB_URI);
 }
 
 var indexRouter = require('./routes/index');
